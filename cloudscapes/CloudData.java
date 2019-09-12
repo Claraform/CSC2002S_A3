@@ -91,15 +91,17 @@ public class CloudData {
 		int[] limits = getLimits(x,y);
 		float xSum=0;
 		float ySum=0;
+		int elements=0;
 		float uplift = Math.abs(convection[t][x][y]);
 		for (int i=limits[0]; i<=limits[1]; i++){
 			for (int j=limits[2]; j<=limits[3]; j++){
-                        	ySum=ySum+advection[t][i][j].y;
+                        	elements=elements+1;
+				ySum=ySum+advection[t][i][j].y;
 				xSum=xSum+advection[t][i][j].x;
 			}
                 }
-		float xMean = xSum/(limits[1]+1);
-		float yMean = ySum/(limits[3]+1);
+		float xMean = xSum/elements;
+		float yMean = ySum/elements;
 		float magn =(float)Math.sqrt(Math.pow(xMean,2)+Math.pow(yMean,2));
 		int code=3; //error code
 		if (uplift>magn){
