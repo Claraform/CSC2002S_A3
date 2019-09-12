@@ -16,7 +16,7 @@ class SumThread extends RecursiveTask<vector>{
 		cdp=cd;
 	}
 	protected vector compute (){
-		if (hi-lo < 500){
+		if (hi-lo < 100){
 			vector ans=new vector();
 			for(int i=lo; i < hi; i++){
 				int [] ind = new int[3];

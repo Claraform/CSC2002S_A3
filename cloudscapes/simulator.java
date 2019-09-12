@@ -13,7 +13,7 @@ public class simulator{
 		String output=args[1];
 		cd.readData(filename);
 		int length = cd.dim();
-		
+		long startTime = System.nanoTime();	
 		for (int i=0; i<length; i++){
 			int [] ind = new int[3];
 		      	cd.locate(i, ind);
@@ -24,11 +24,14 @@ public class simulator{
 			ySum=ySum+cd.advection[t][x][y].y;
 			cd.classify(t,x,y);
 		}
+		long endTime=System.nanoTime();
+		long duration = (endTime - startTime);
 		vector wind = new vector();
 		wind.x = xSum/length;
 		wind.y = ySum/length;
 		//
 		cd.writeData(output, wind);
+		System.out.println("Run time:"+duration/1000000);
 	
 	}
 

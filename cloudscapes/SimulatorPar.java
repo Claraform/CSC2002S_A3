@@ -26,8 +26,11 @@ public class SimulatorPar{
 		String output=args[1];
 		cd.readData(filename);
 		int length = cd.dim();
+		long startTime = System.nanoTime();
 		vector wind=sum(cd.advection,length, cd);
 		goClass(length,cd);
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime);
 		//for (int i=0; i<length; i++){
 		//	int [] ind = new int[3];
 		//    	cd.locate(i, ind);
@@ -43,6 +46,7 @@ public class SimulatorPar{
 		wind.y = wind.y/length;
 		//
 		cd.writeData(output, wind);
+		System.out.println("Duration:"+duration/1000000);
 
 	}
 
