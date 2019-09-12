@@ -7,4 +7,8 @@ public class vector{
 	public vector(){
 
 	}
+	void add(vector v){
+		x+=v.x;
+		y+=v.y;
+	}
 }
