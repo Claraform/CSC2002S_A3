@@ -17,10 +17,12 @@ public class simulator{
 		for (int i=0; i<length; i++){
 			int [] ind = new int[3];
 		      	cd.locate(i, ind);
-			xSum=xSum+cd.advection[ind[0]][ind[1]][ind[2]].x;	
-			ySum=ySum+cd.advection[ind[0]][ind[1]][ind[2]].y;
-			//vector wind = cd.advection[ind[0]][ind[1]][ind[2]];
-			//cd.writeData(output, wind);
+			int t=ind[0];
+			int x=ind[1];
+			int y=ind[2];
+			xSum=xSum+cd.advection[t][x][y].x;	
+			ySum=ySum+cd.advection[t][x][y].y;
+			cd.classify(t,x,y);
 		}
 		vector wind = new vector();
 		wind.x = xSum/length;
@@ -29,14 +31,5 @@ public class simulator{
 		cd.writeData(output, wind);
 	
 	}
-	int classify(vector v, int [] ind){
-		int y=ind[2];
-		int x=ind[1];
-		int t=ind[0];
-		for(4){
-				
-		}
-	}
-
 
 }

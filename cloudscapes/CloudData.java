@@ -6,6 +6,7 @@ import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.Locale;
+import java.lang.Math;
 
 public class CloudData {
 
@@ -86,4 +87,56 @@ public class CloudData {
 				e.printStackTrace();
 		 }
 	}
+	void classify(int t, int x, int y){
+		int[] limits = getLimits(x,y);
+		float xSum=0;
+		float ySum=0;
+		float uplift = Math.abs(convection[t][x][y]);
+		for (int i=limits[0]; i<=limits[1]; i++){
+			for (int j=limits[2]; j<=limits[3]; j++){
+                        	ySum=ySum+advection[t][i][j].y;
+				xSum=xSum+advection[t][i][j].x;
+			}
+                }
+		float xMean = xSum/(limits[1]+1);
+		float yMean = ySum/(limits[3]+1);
+		float magn =(float)Math.sqrt(Math.pow(xMean,2)+Math.pow(yMean,2));
+		int code=3; //error code
+		if (uplift>magn){
+			code=0;
+		}
+		else if (magn>0.2 && magn>=uplift){
+			code=1;
+		}
+		else{
+			code=2;
+		}
+		classification[t][x][y]=code;
+
+	}	
+	int[] getLimits(int x, int y){
+		int[] limits = new int[4];
+		if (x==0){
+			limits[0]=0; //start co-ord
+		} 
+		else {
+			limits[0]=x-1;//start
+		}
+		if (y==0){
+			limits[2]=0;//start
+		} 
+                else {
+			limits[2]=y-1;//start
+		}
+		if (x==dimx-1){
+			limits[1]=x;
+		}
+		else {limits[1]=x+1;}
+		if (y==dimy-1){
+			limits[3]=y;
+		}
+		else {limits[3]=y+1;}
+		return limits;
+	}
+
 }
