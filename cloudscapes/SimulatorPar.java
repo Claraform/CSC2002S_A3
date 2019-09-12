@@ -11,6 +11,12 @@ public class SimulatorPar{
 		return ForkJoinPool.commonPool().invoke
 			(new SumThread(arr,0,elements, cd));
 	}
+	static final ForkJoinPool pool = new ForkJoinPool();
+	static int goClass(int elements, CloudDataPar cd){
+		return ForkJoinPool.commonPool().invoke
+			(new ClassThread(0,elements, cd));
+	}
+
 	public static void main (String[] args){
 		float xSum=0;
 		float ySum=0;
@@ -21,6 +27,7 @@ public class SimulatorPar{
 		cd.readData(filename);
 		int length = cd.dim();
 		vector wind=sum(cd.advection,length, cd);
+		goClass(length,cd);
 		//for (int i=0; i<length; i++){
 		//	int [] ind = new int[3];
 		//    	cd.locate(i, ind);
